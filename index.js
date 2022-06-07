@@ -1,11 +1,12 @@
+const env = require('dotenv').config().parsed
+const api = require('./api');
+
 const VALUE_SELL = 36291;
 const VALUE_BUY = 35764;
 
 async function process(){
-    const axios = require("axios");
-    const response = await axios.get("https://api.binance.com/api/v3/klines?symbol=BTCBUSD&interval=1M");
-
-    const closes = response.data.map(candle => parseFloat(candle[4]));
+    const candles =  await api.get_candles();
+    const closes = candles.map(candle => parseFloat(candle[4]));
     const price = closes[0];
 
     const rsi = calcRSI(closes);
@@ -29,7 +30,7 @@ function calcRSI(closes) {
     }
 
     const rs = gains / losses;
-    return 100 - (100 / 1 + rs);
+    return 100 - (100 / (1 + rs));
 }
 
 function indicateRSI(rsi) {
@@ -39,7 +40,6 @@ function indicateRSI(rsi) {
         console.log("Sobrevendido!");
     }
 }
-
 
 function choice(price){
     if(price >= VALUE_SELL) {
@@ -51,6 +51,6 @@ function choice(price){
     }
 }
 
-setInterval(process, 60000);
+setInterval(process, env.CRAWLER_INTERVAL);
 
 process();
