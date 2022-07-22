@@ -1,5 +1,28 @@
 import { CandleAnalysis } from "../model/Candle";
 
+function getPattern(candles: Array<CandleAnalysis>): Object {
+    const patterns = {
+        'isBullish': isBullish(candles[2]),
+        'isBearish': isBearish(candles[2]),
+        'isPowerCandle': isPowerCandle(candles[2]),
+        'isRejectionCandle': isRejectionCandle(candles[2]),
+        'isDoubtCandle': isDoubtCandle(candles[2]),
+        'bearish_pin_bars': bearish_pin_bars(candles[2]),
+        'bullish_pin_bars': bullish_pin_bars(candles[2]),
+        'bullish_harami': bullish_harami(candles[1], candles[2]),
+        'bearish_harami': bearish_harami(candles[1], candles[2]),
+        'bullish_engulfing': bullish_engulfing(candles[1], candles[2]),
+        'bearish_engulfing': bearish_engulfing(candles[1], candles[2]),
+        'morning_star': morning_star(candles[0], candles[1], candles[2]),
+        'evening_star': evening_star(candles[0], candles[1], candles[2]),
+    };
+
+    return {
+        ...candles[2],
+        patterns
+    }
+}
+
 function isBullish(candle: CandleAnalysis): boolean {
     return candle.status === 1 ? true : false
 }
@@ -123,6 +146,7 @@ function evening_star(firstCandle: CandleAnalysis, secondCandle: CandleAnalysis,
 }
 
 module.exports = {
+    getPattern,
     bearish_pin_bars,
     bullish_pin_bars,
     bullish_harami,

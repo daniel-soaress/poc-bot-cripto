@@ -1,6 +1,5 @@
 import { Candle, CandleAnalysis } from "../model/Candle";
 
-
 function analysis_candle(candle: Candle): CandleAnalysis {
     const open = candle.open;
     const close = candle.close;

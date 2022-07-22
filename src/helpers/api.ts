@@ -1,12 +1,9 @@
-const env = require('dotenv').config().parsed
-const axios = require("axios");
-const crypto = require('crypto');
 
+import { env, axios, crypto} from './commom';
 const apiKey = env.API_KEY;
 const apiSecret = env.SECRET_KEY;
-const apiURL = env.MARKET_FUTURE_API;
 
-async function apiWithKey(path, data, method = "GET") {
+async function apiWithKey(path: string, data: any, method: string = "GET") {
     const timestamp = Date.now();
     const signature = crypto.createHmac('sha256', apiSecret)
         .update(`${new URLSearchParams({ ...data, timestamp }).toString()}`)
@@ -28,7 +25,7 @@ async function apiWithKey(path, data, method = "GET") {
     }
 }
 
-async function api(path, data, method = "GET") {
+async function api(path: string, data: any, method = "GET") {
     try {
         const qs = data ? `?${new URLSearchParams(data).toString()}` : '';
         const response = await axios({

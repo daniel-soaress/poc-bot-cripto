@@ -1,4 +1,4 @@
-function indicatorRSI(clandles: Array<number>): number {
+function rsi(clandles: Array<number>): number {
     let gains = 0;
     let losses = 0;
 
@@ -16,5 +16,5 @@ function indicatorRSI(clandles: Array<number>): number {
 }
 
 module.exports = {
-    indicatorRSI
+    rsi
 }
