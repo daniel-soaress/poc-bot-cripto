@@ -3,9 +3,9 @@ const futures = require('./helpers/marketFutures');
 const analyse = require('./helpers/analysis');
 const patterns = require('./helpers/patterns');
 const indicators = require('./helpers/indicators');
+import run from "./estrategies/druid"
 
-
-async function run(){
+/*async function run(){
     const candles = await futures.get_candlestick_data('BTCUSDT', '1h')
     const analyses = [
         analyse.analysis_candle(candles[candles.length - 4]),
@@ -14,7 +14,7 @@ async function run(){
         
     console.log('Candle:', patterns.getPattern(analyses));
     console.log('RSI:', indicators.rsi(candles.map((el: any) => el.close)));
-}
+}*/
 
 setInterval(run, env.CRAWLER_INTERVAL);
 
